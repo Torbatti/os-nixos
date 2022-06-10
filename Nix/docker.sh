@@ -1,0 +1,1 @@
+echo '{ "registry-mirrors": ["http://docker.bardia.tech:8080/"] }' > /etc/docker/daemon.json/
