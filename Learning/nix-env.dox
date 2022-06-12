@@ -1,0 +1,22 @@
+# NIX-ENVIORNMENT : $ nix-env
+//1: The nix-env tool manages environments, profiles and their generations. 
+
+
+
+
+
+
+
+
+
+
+
+
+    //https://nixos.org/guides/nix-pills/enter-environment.html#install-something
+    # nix-env -i hello
+    # nix-env --list-generations
+    # nix-env -q
+
+
+
+
