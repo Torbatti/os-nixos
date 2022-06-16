@@ -9,4 +9,11 @@
         ./display-managers/display-managers.nix
         ./desktop-enviornments/desktop-enviornments.nix
     ];
+
+    # Configure keymap in X11
+    services.xserver = {
+        layout = "us";
+        xkbVariant = "";
+    };
+
 }

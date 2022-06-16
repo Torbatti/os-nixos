@@ -21,20 +21,16 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   
-  home.packages = [
-    pkgs.htop
-    pkgs.gcc
-    pkgs.rustup
-    pkgs.go
-    pkgs.nodejs
+  home.packages = with pkgs;[
+    gcc
+    rustup
+    go
+    nodejs
   ]; 
  
-
-  #VSCODE
-  programs.vscode.enable = true;
-  programs.vscode.extensions = 
+  imports =
   [
-
+      ./packages/packages.nix
   ];
 
 
