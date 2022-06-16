@@ -22,12 +22,10 @@
   programs.home-manager.enable = true;
   
   home.packages = with pkgs;[
-    gcc
-    rustup
     go
     nodejs
   ]; 
- 
+  
   imports =
   [
       ./packages/packages.nix

@@ -6,6 +6,5 @@
         wget
         firefox
         pavucontrol
-        git
     ];
 }

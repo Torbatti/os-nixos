@@ -1,7 +1,6 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs,home-manager, ... }:
 {
-    home.packages.pkgs = [
+    home.packages = with pkgs;[
         gcc
     ];
 }
