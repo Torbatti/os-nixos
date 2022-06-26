@@ -3,20 +3,15 @@
 { config, pkgs, ... }:
 
 {
+  imports =
+  [
+      ./packages/packages.nix
+  ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "torbatti";
   home.homeDirectory = "/home/torbatti";
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "22.05";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -24,12 +19,23 @@
   home.packages = with pkgs;[
     go
     nodejs
+    gtk3
   ]; 
-  
-  imports =
-  [
-      ./packages/packages.nix
-  ];
+
+  # - Git
+  programs.git = {
+    enable = true;
+    userName  = "torbatti";
+    userEmail = "torbattii@gmail.com";
+  };
+  # - VSCODE
+    nixpkgs.config.allowUnfree = true;
+    programs.vscode = {
+      enable = true;
+      extensions = with pkgs.vscode-extensions; [
+
+      ];
+    };
 
 
 }

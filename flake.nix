@@ -1,20 +1,21 @@
 {
-  description = "Nixos Conf + Home Manager + Flakes";
+  description = "Nixos Conf + Home Manager";
 
-  inputs ={
-    nixpkgs.url = "nixpkgs/nixos-22.05";
-    home-manager.url  = "github:nix-community/home-manager/";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  };
+  # - NIXPKGS
+    inputs.unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+  # - HOME-MANAGER
+    inputs.home-manager.url = "github:nix-community/home-manager";
+    inputs.home-manager.inputs.nixpkgs.follows = "unstable";
+    
   outputs = {nixpkgs, home-manager, ... }: 
   let
     system = "x86_64-linux";
     username = "torbatti";
 
     pkgs = import nixpkgs {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
+       config = {allowUnfree = true;};
+     };
 
     lib = nixpkgs.lib;
 
@@ -22,21 +23,20 @@
     {
       homeManagerConfiguration = {
         torbatti = home-manager.lib.homeManagerConfiguration{
-          inherit system username pkgs;
-
-          homeDirectory = "/home/${username}";
-
-          configuration = {
-            imports = [
-              ./NixOs/Home-Manager/home.nix
-            ];
-          };
-          
-          stateVersion = "22.05";
-
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            ./NixOs/Home-Manager/home.nix
+            {
+              home = {
+                username = "torbatti";
+                homeDirectory = "/home/torbatti";
+                stateVersion = "22.05";
+              };
+            }
+          ];
         };
+          
       };
-
       nixosConfigurations = {
         nixos = lib.nixosSystem{
           inherit system;
@@ -47,4 +47,5 @@
       };
       
     };
+    
 }
