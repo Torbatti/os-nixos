@@ -11,25 +11,25 @@
   outputs = {nixpkgs, home-manager, ... }: 
   let
     system = "x86_64-linux";
-    username = "torbatti";
-
-    pkgs = import nixpkgs {
-       config = {allowUnfree = true;};
-     };
+    user = "torbatti";
 
     lib = nixpkgs.lib;
 
   in
     {
       homeManagerConfiguration = {
-        torbatti = home-manager.lib.homeManagerConfiguration{
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        ${user} = home-manager.lib.homeManagerConfiguration{
+          # pkgs = nixpkgs.legacyPackages.${system};
+          pkgs =  import nixpkgs {
+            inherit system;
+            config = {allowUnfree = true;};
+          };
           modules = [
             ./NixOs/Home-Manager/home.nix
             {
               home = {
-                username = "torbatti";
-                homeDirectory = "/home/torbatti";
+                username = "${user}";
+                homeDirectory = "/home/${user}";
                 stateVersion = "22.05";
               };
             }
